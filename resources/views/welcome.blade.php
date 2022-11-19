@@ -57,17 +57,54 @@
         </nav>
 
         <main class="py-4">
+        <form action="{{route('cari')}}" method="get">
         <div class="container">
             <div class="row">
                 <div class="col">
-                <input class="form-control" type="text" placeholder="Cari surat berdasarkan kode" aria-label="default input example">
+                <input class="form-control" type="text" name="cari" placeholder="Cari surat berdasarkan no surat" aria-label="default input example">
                 </div>
                 <div class="col col-lg-3">
-                <a href="" class="btn btn-primary">Cari Surat</a>
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                <!-- <a href="" class="btn btn-primary">Cari Surat</a> -->
                 <a href="surat_masuk/kirim" class="btn btn-success">Kirim Surat</a>
                 </div>
             </div>
             </div>
+        </form>
+        <br>
+        <div class="row justify-content-center">
+        <div class="col-md-10">
+            <table class="table">
+                <thead class="table-secondary">
+                    <tr align="center">
+                    <th scope="col">#</th>
+                    <th scope="col">No Surat</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Sumber</th>
+                    <th scope="col">Judul</th>
+                    <th scope="col">Status</th>  
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach($surat as $sur)
+                        <tr align="center">
+                            <td>{{$sur->id}}</td>
+                            <td>{{$sur->id_surat}}</td>
+                            <td>{{$sur->tgl_surat}}</td>
+                            <td>{{$sur->sbr_surat}}</td>
+                            <td>{{$sur->jdl_surat}}</td>
+                            <td><?php if($sur->status =='1'){
+                               echo '<span class="badge bg-success">Sudah dibelas</span>';
+                            }if($sur->status =='0'){
+                                echo '<span class="badge bg-danger">Belum dibelas</span>';
+                             }?></td>
+                            
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
         </main>
     </div>
 </body>

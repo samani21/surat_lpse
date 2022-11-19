@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('jdl_surat');
             $table->string('nm_file');
             $table->string('kd_surat');
+            $table->integer('status');
+            $table->string('file_balasan');
             $table->timestamps();
         });
     }
