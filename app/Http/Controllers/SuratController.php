@@ -9,8 +9,16 @@ Use Alert;
 
 class SuratController extends Controller
 {
-    public function index(){
-        $surat = Surat::all();
+    public function index(Request $request)
+	{
+		// menangkap data pencarian
+		$cari = $request->cari;
+    		// mengambil data dari table pegawai sesuai pencarian data
+            $surat = DB::table('tb_surat')
+            ->where('id_surat','like',"%".$cari."%",'')
+		->paginate();
+        
+ 
         return view('surat_keluar.home',compact(['surat']));
     }
 
@@ -45,6 +53,25 @@ class SuratController extends Controller
         return view('surat_keluar.balasan',compact(['surat']));
     }
 
+    public function destroy($id){
+        $surat = Surat::find($id);
+        $surat->delete();
+        toast('Yeay Berhasil menghapus data','success');
+        return redirect('/');
+    }
+
+    public function hapus($id){
+        $surat = Surat::find($id);
+        $surat->delete();
+        toast('Yeay Berhasil menghapus data','success');
+        return redirect('/home');
+    }
+
+    public function editsurat($id){
+        $surat = Surat::find($id);
+        return view('surat_masuk.edit',compact(['surat']));
+    }
+
     public function update(Request $request, $id){
         $ubah = Surat::findorfail($id);
         $surat = $request->file_balasan;
@@ -59,9 +86,30 @@ class SuratController extends Controller
             'status' => $request['status'],
             'file_balasan' => $nama_file,
         ];
-        $request->file_balasan->move(public_path().'/file/balasan',$nama_file);
+        $request->file_balasan->move(public_path().'/file',$nama_file);
         $ubah->update($dt);
-        return redirect('home');
+        alert('Sukses','Simpan Data Berhasil', 'success');
+        return redirect('/home');
+    }
+
+    public function updatesurat(Request $request, $id){
+        $ubah = Surat::findorfail($id);
+        $surat = $request->nm_file;
+        $nama_file = time().rand(100,999).".".$surat->getClientOriginalExtension();
+        $dt =[
+            'id_surat' => $request['id_surat'],
+            'tgl_surat' => $request['tgl_surat'],
+            'sbr_surat' => $request['sbr_surat'],
+            'jdl_surat' => $request['jdl_surat'],
+            'file_balasan' => $request['file_balasan'],
+            'kd_surat' => $request['kd_surat'],
+            'status' => $request['status'],
+            'nm_file' => $nama_file,
+        ];
+        $request->nm_file->move(public_path().'/file',$nama_file);
+        $ubah->update($dt);
+        alert('Sukses','Simpan Data Berhasil', 'success');
+        return redirect('/');
     }
 
     public function cari(Request $request)
@@ -70,13 +118,34 @@ class SuratController extends Controller
 		$cari = $request->cari;
  
     		// mengambil data dari table pegawai sesuai pencarian data
-		$surat = DB::table('tb_surat')
-		->where('tgl_surat','like',"%".$cari."%",'')
+		if($cari == ""){
+            $surat = DB::table('tb_surat')
+            ->where('id_surat','like',"%".'adsad'."%",'')
 		->paginate();
+        }else if($cari == $cari){
+            $surat = DB::table('tb_surat')
+            ->where('id_surat','like',"%".$cari."%",'')
+		->paginate();
+        }
  
     		// mengirim data pegawai ke view index
 		return view('welcome',compact(['surat']));
  
 	}
     
+    public function carisurat(Request $request)
+	{
+		// menangkap data pencarian
+		$cari = $request->cari;
+ 
+    		// mengambil data dari table pegawai sesuai pencarian data
+            $surat = DB::table('tb_surat')
+            ->where('id_surat','like',"%".$cari."%",'')
+		->paginate();
+        
+ 
+    		// mengirim data pegawai ke view index
+		return view('/home',compact(['surat']));
+ 
+	}
 }

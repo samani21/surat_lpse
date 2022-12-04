@@ -33,6 +33,8 @@ Route::get('surat_masuk/kirim',[SuratController::class,'create'])->name('surat_m
 Route::post('surat_masuk/store',[SuratController::class,'store'])->name('surat_masuk/store');
 Route::get('surat_keluar/balasan/{id}',[SuratController::class,'edit'])->name('surat_keluar/balasan');
 Route::post('surat_keluar/{id}',[SuratController::class,'update'])->name('surat_keluar/balasan');
-
-
+Route::get('surat_masuk/edit/{id}',[SuratController::class,'editsurat'])->name('surat_masuk/edit');
+Route::post('surat_masuk/{id}',[SuratController::class,'updatesurat'])->name('surat_masuk/edit');
+Route::get('hapus_surat/{id}', [SuratController::class,'destroy'])->name('hapus_surat');
+Route::get('hapussurat/{id}', [SuratController::class,'hapus'])->name('hapussurat');
 // Route::post('surat_keluar/store',[BalasanController::class,'store'])->name('surat_keluar/store');

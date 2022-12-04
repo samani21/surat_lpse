@@ -12,11 +12,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/ef1603951a.js" crossorigin="anonymous"></script>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
+    @include('sweetalert::alert')
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-secondary shadow-sm">
             <div class="container">
@@ -43,11 +44,11 @@
                                 </li>
                             @endif
 
-                            @if (Route::has('register'))
+                            {{-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif --}}
                         @else
                            
                         @endguest
@@ -82,23 +83,32 @@
                     <th scope="col">Tanggal</th>
                     <th scope="col">Sumber</th>
                     <th scope="col">Judul</th>
-                    <th scope="col">Status</th>  
+                    <th scope="col"align="center" >Status</th> 
+                    <th scope="col">Aksi</th> 
                 </tr>
                 </thead>
                 <tbody>
+                    @php 
+                        $no=1;
+                    @endphp
                     @foreach($surat as $sur)
                         <tr align="center">
-                            <td>{{$sur->id}}</td>
+                            <td>{{ $no++ }}</td>
                             <td>{{$sur->id_surat}}</td>
                             <td>{{$sur->tgl_surat}}</td>
                             <td>{{$sur->sbr_surat}}</td>
                             <td>{{$sur->jdl_surat}}</td>
-                            <td><?php if($sur->status =='1'){
+                            <td align="center" ><?php if($sur->status =='1'){
                                echo '<span class="badge bg-success">Sudah dibelas</span>';
                             }if($sur->status =='0'){
                                 echo '<span class="badge bg-danger">Belum dibelas</span>';
                              }?></td>
-                            
+                            <td align="right" width="300">
+                                <a href="{{asset ('file/'.$sur->nm_file)}}" class="btn btn-success" download=""><i class="fa-sharp fa-solid fa-download"></i> Surat</a>
+                                <a href="{{asset ('file/'.$sur->file_balasan)}}" class="btn btn-primary" download=""><i class="fa-sharp fa-solid fa-download"></i> balasan</a>
+                                <a href="/surat_masuk/edit/{{$sur->id}}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="hapus_surat/{{$sur->id}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
