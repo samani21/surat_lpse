@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.surat')
 
 @section('content')
 <div class="container">
@@ -26,14 +26,14 @@
                 </div>
                 <div class="mb-3">
                 <label for="formFileSm" class="form-label">Masukkan file</label>
-                <input class="form-control form-control-sm" id="formFileSm" type="file" name="nm_file" id="nm_file" required>
+                <input class="form-control form-control-sm"  type="file" name="nm_file" id="nm_file" onchange="return validasiEkstensi()" required>
                 </div>
                 <div>
                     <label for="">kode surat</label>
                     <input class="form-control" type="text" name="kd_surat" placeholder="Kode surat" aria-label="default input example" required>
                 </div>
                 <div>
-                    <input class="form-control" type="hidden" name="status" value="0" placeholder="Kode surat" aria-label="default input example">
+                    <input class="form-control" type="hidden" name="status" value="0" placeholder="status" aria-label="default input example">
                 </div>
                 <div>
                     <input class="form-control" type="hidden" name="file_balasan" value="-" placeholder="Kode surat" aria-label="default input example">
@@ -46,3 +46,4 @@
     </div>
 </div>
 @endsection
+

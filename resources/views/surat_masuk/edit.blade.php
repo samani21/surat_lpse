@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.surat')
 
 @section('content')
 <div class="container">
@@ -11,29 +11,29 @@
                 @csrf
                 <div>
                     <label for="">No surat</label>
-                    <input class="form-control" type="text" name="id_surat" value="{{$surat->id_surat}}" aria-label="default input example">
+                    <input class="form-control" type="text" name="id_surat" value="{{$surat->id_surat}}" aria-label="default input example" required>
                 </div>
                 <div>
                     <label for="">Tanggal surat</label>
-                    <input class="form-control" type="text" name="tgl_surat" value="{{$surat->tgl_surat}}" readonly aria-label="default input example">
+                    <input class="form-control" type="text" name="tgl_surat" value="{{$surat->tgl_surat}}" readonly aria-label="default input example" required>
                 </div>
                 <div>
                     <label for="">Sumber surat</label>
-                    <input class="form-control" type="text" name="sbr_surat" value="{{$surat->sbr_surat}}"  aria-label="default input example">
+                    <input class="form-control" type="text" name="sbr_surat" value="{{$surat->sbr_surat}}"  aria-label="default input example" required>
                 </div>
                 <div>
                     <label for="">Judul surat</label>
-                    <input class="form-control" type="text" name="jdl_surat" value="{{$surat->jdl_surat}}"  aria-label="default input example">
+                    <input class="form-control" type="text" name="jdl_surat" value="{{$surat->jdl_surat}}"  aria-label="default input example" required>
                 </div>
                 <div class="mb-3">
                     <label for="formFileSm" class="form-label">Masukkan file</label>
-                    <input class="form-control form-control-sm" id="formFileSm" type="file" name="nm_file" id="file_balasan" value="{{$surat->nm_file}}">
+                    <input class="form-control form-control-sm" id="nm_file" onchange="return validasiEkstensi()" type="file" name="nm_file" id="file_balasan" value="{{$surat->nm_file}}" required>
                     </div>
                 <div>
-                    <input class="form-control" type="hidden" name="status" value="1"  aria-label="default input example">
+                    <input class="form-control" type="hidden" name="status" value="0"  aria-label="default input example" >
                 </div>
                 <div class="mb-3">
-                <input class="form-control form-control-sm" id="formFileSm" type="hidden" name="file_balasan" id="file_balasan" value="{{$surat->file_balasan}}">
+                <input class="form-control form-control-sm" id="formFileSm" type="hidden" name="file_balasan" id="file_balasan" value="{{$surat->file_balasan}}" required>
                 </div>
                 <div>
                     <label for="">kode surat</label>

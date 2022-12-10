@@ -34,7 +34,7 @@
                 </div>
                 <div class="mb-3">
                 <label for="formFileSm" class="form-label">Masukkan file</label>
-                <input class="form-control form-control-sm" id="formFileSm" type="file" name="file_balasan" id="file_balasan" value="{{$surat->file_balasan}}">
+                <input class="form-control form-control-sm" id="file_balasan" type="file" name="file_balasan"  onchange="return validasiEkstensi()" id="file_balasan" value="{{$surat->file_balasan}}">
                 </div>
                 <div>
                     <label for="">kode surat</label>

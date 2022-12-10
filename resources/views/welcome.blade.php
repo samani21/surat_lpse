@@ -105,7 +105,12 @@
                              }?></td>
                             <td align="right" width="300">
                                 <a href="{{asset ('file/'.$sur->nm_file)}}" class="btn btn-success" download=""><i class="fa-sharp fa-solid fa-download"></i> Surat</a>
-                                <a href="{{asset ('file/'.$sur->file_balasan)}}" class="btn btn-primary" download=""><i class="fa-sharp fa-solid fa-download"></i> balasan</a>
+                                <a href="{{asset ('file/'.$sur->file_balasan)}}" class="btn btn-primary" download="" style="
+                                <?php if($sur->file_balasan =="-"){
+                                    echo 'pointer-events: none';
+                                 }else{
+                                echo '';
+                             }?>"><i class="fa-sharp fa-solid fa-download"></i> balasan</a>
                                 <a href="/surat_masuk/edit/{{$sur->id}}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="hapus_surat/{{$sur->id}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                             </td>
